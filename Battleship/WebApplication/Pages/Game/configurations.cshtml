@@ -1,0 +1,184 @@
+@page
+@using BattleshipBrain
+@using BattleshipBasicTypes
+@using Microsoft.EntityFrameworkCore
+@using System.ComponentModel.Design.Serialization
+@model WebApplication.Pages.Game.configurations
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<h1>@Model.Message</h1>
+<div>
+    @{
+        if (Model.cmd == "edit")
+        {
+            <form method="post">
+                <div class="row">
+                    <label class="form-label">Name</label>
+                    <input type="text" class="form-control" id="confName" value="@Model.ToEdit!.Name"/>
+                </div>
+                <div class="row">
+                    <label class="form-label">Width</label>
+                    <input type="text" class="form-control" id="BoardWidth" value="@Model.ToEdit.BoardWidth"/>
+                </div>
+                <div class="row">
+                    <label class="form-label">Height</label>
+                    <input type="text" class="form-control" id="BoardHeight" value="@Model.ToEdit.BoardHeight"/>
+                </div>
+                <div class="row">
+                    <label class="form-label">Placement</label>
+                    <select class="form-control" id="placement">
+                        <option value="0">Not touching</option>
+                        <option value="1">Corners touching</option>
+                        <option value="2">Side by side</option>
+                    </select>
+                </div>
+                @foreach (ShipConfig ship in Model.ToEdit.ShipConfigs)
+                {
+                    <div class="row">
+                        <div class="col">
+                            <label class="form-label">Name:</label>
+                            <input type="text" class="form-control" id="@Model.ToEdit.ShipConfigs.IndexOf(ship)sn" value="@ship.Name"/>
+                        </div>
+                        <div class="col">
+                            <label class="form-label">Amount</label>
+                            <input type="int" class="form-control" id="@Model.ToEdit.ShipConfigs.IndexOf(ship)q" value="@ship.Quantity"/>
+                        </div>
+                        <div class="col">
+                            <label class="form-label">Width</label>
+                            <input type="int" class="form-control" id="@Model.ToEdit.ShipConfigs.IndexOf(ship)sx" value="@ship.SizeX"/>
+                        </div>
+                        <div class="col">
+                            <label class="form-label">Width</label>
+                            <input type="int" class="form-control" id="@Model.ToEdit.ShipConfigs.IndexOf(ship)sy" value="@ship.SizeY"/>
+                        </div>
+                    </div>
+                }
+                <input type="hidden" id="ships" value="@Model.ToEdit.ShipConfigs.Count"/>
+                <input type="hidden" id="id" value="@Model.ToEdit.Id"/>
+                <input type="hidden" id="db" value="@(Model.useDB ? "1" : "")"/>
+                @if (!Model.useDB)
+                {
+                    <input type="hidden" id="file" value="@Model.ID"/>
+                }
+                <div class="row">
+                    <div class="col">
+                        <button class="btn btn-success" id="save" onclick="window.location.href = '/Game/configurations'">Save</button>
+                    </div>
+                    <div class="col">
+                        @if (Model.useDB)
+                        {
+                            <div class="btn btn-danger" id="delete" onclick="window.location.href = '/Game/configurations?&cmd=del&id=@Model.ToEdit.Id'">Delete</div>
+                        }
+                        else
+                        {
+                            <div class="btn btn-danger" id="delete" onclick="window.location.href = '/Game/configurations?&cmd=del&id=@Model.ID'">Delete</div>
+                        }
+                    </div>
+                </div>
+            </form>
+            
+            <script>
+                
+            
+                document.getElementById("save").addEventListener("click", function(e){
+                    e.preventDefault();
+                    let a = document.getElementById("ships").value;
+                    console.log(a);
+                    const name = document.getElementById("confName").value;
+                    const bHeight = parseInt(document.getElementById("BoardHeight").value);
+                    const bWidth = parseInt(document.getElementById("BoardWidth").value);
+                    const placement = parseInt(document.getElementById("placement").value);
+                    const id = parseInt(document.getElementById("id").value)
+                    let config = {
+                        "BoardWidth": bWidth,
+                        "BoardHeight": bHeight,
+                        "ShipPlacement": placement,
+                        "Name": name,
+                        "Id": id
+                    };
+                    config["ShipConfigs"] = []
+                    for (let i = 0; i < parseInt(a); i++) {
+                        const ship = {};
+                        ship["Name"] = document.getElementById(i+"sn").value;
+                        ship["Quantity"] = parseInt(document.getElementById(i+"q").value);
+                        ship["SizeX"] = parseInt(document.getElementById(i+"sx").value);
+                        ship["SizeY"] = parseInt(document.getElementById(i+"sy").value);
+                        config["ShipConfigs"][i] = ship;
+                    }
+                    
+                    console.log(config);
+                    
+                    console.log(JSON.stringify(config))
+                    if (document.getElementById("db").value) {
+                        fetch("/Game/configurations?cmd=save&save="+encodeURI(JSON.stringify(config)))
+                    } else {
+                        fetch("/Game/configurations?cmd=save&save="+encodeURI(JSON.stringify(config))+"&id="+document.getElementById("file").value)
+                    }
+                });
+            </script>
+            
+        }
+        else if (Model.cmd == "view")
+        {
+            <div class="row">
+                <p>Name: @Model.ToEdit!.Name</p>
+            </div>
+            <div class="row">
+                <p>Width: @Model.ToEdit.BoardWidth</p>
+            </div>
+            <div class="row">
+                <p>Height: @Model.ToEdit.BoardHeight</p>
+            </div>
+            <div class="row">
+                <p>Placement: @Model.ToEdit.ShipPlacement</p>
+            </div>
+            @foreach (ShipConfig ship in Model.ToEdit.ShipConfigs)
+            {
+                <div class="row">
+                    <div class="col">
+                        <label asp-for="@ship.Name" class="form-label">@ship.Name</label>
+                    </div>
+                    <div class="col">
+                        <label asp-for="@ship.Quantity" class="form-label">Amount: @ship.Quantity</label>
+                    </div>
+                    <div class="col">
+                        <label asp-for="@ship.SizeX" class="form-label">Length: @ship.SizeX</label>
+                    </div>
+                    <div class="col">
+                        <label asp-for="@ship.SizeY" class="form-label">Width: @ship.SizeY</label>
+                    </div>
+                </div>
+            }
+            @if (Model.useDB)
+            {
+                <div class="btn btn-warning" onclick="window.location.href = '/Game/configurations?&cmd=edit&id=@Model.ToEdit.Id'">Edit</div>
+            }
+            else
+            {
+                <div class="btn btn-warning" onclick="window.location.href = '/Game/configurations?&cmd=edit&id=@Model.ID'">Edit</div>
+            }
+        }
+        else
+        {
+            @foreach (KeyValuePair<string, string> conf in Model.Configs)
+            {
+                <div class="row">
+                    <div class="col">@conf.Value</div>
+                    <div class="col"><div class="btn btn-primary" onclick="window.location.href = '/Game/Play?startNew=@true&id=@conf.Key&player=0'">Load this</div></div>
+                    <div class="col"><div class="btn btn-warning" onclick="window.location.href = '/Game/configurations?&cmd=view&id=@conf.Key'">View</div></div>
+                    <div class="col"><div class="btn btn-success" onclick="window.location.href = '/Game/configurations?&cmd=edit&id=@conf.Key'">Edit</div></div>
+                </div>
+            }
+            <div class="btn btn-secondary" onclick="window.location.href = '/Game/configurations?&cmd=new'">Add new</div>
+        }
+    }
+</div>
+</body>
+</html>

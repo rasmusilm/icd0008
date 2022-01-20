@@ -1,0 +1,64 @@
+@page
+@model WebApplication.Pages.Game.Load
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Saves</title>
+</head>
+<body>
+<div>
+    @if (Model.ChangeName)
+    {
+        <div class="row">
+            <div class="col">
+                <label>Name</label>
+                <input type="text" id="nameField" value="@Model.Name"/>
+            </div>
+            <div class="col">
+                <button id="save" onclick="window.location.href = '/Game/Load' ">Save</button>
+            </div>
+        </div>
+        <input type="hidden" id="id" value="@Model.Id"/>
+        <script>
+                document.getElementById("save").addEventListener("click", function(e){
+
+                    fetch("/Game/Load?cmd=rename&name="+encodeURI(document.getElementById("nameField").value)+"&id="+document.getElementById("id").value);
+                });
+            </script>
+    }
+    else
+    {
+        @foreach (string save in Model.Saves.Keys)
+            {
+                <div class="row">
+                    <div class="col">
+                        @save
+                        <div class="btn btn-primary" onclick="window.location.href = '/Game/Load?cmd=name&id=@Model.Saves[save]'">Rename</div>
+                    </div>
+        
+                    <div class="col">
+                        <div class="btn btn-success" onclick="window.location.href = '/Game/Play?load=true&id=@Model.Saves[save]' ">
+                            Load player 1
+                        </div>
+                        <div class="btn btn-success" onclick="window.location.href = '/Game/Play?load=true&id=@Model.Saves[save]&player=1' ">
+                            Load player 2
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="btn btn-danger" onclick="window.location.href = '/Game/Load?cmd=del&id=@Model.Saves[save]' ">Delete</div>
+                    </div>
+                    <div>
+                        <div class="btn btn-success" onclick="window.location.href = '/Game/History?id=@Model.Saves[save]' ">
+                            View history
+                        </div>
+                    </div>
+                </div>
+            }
+    }
+    
+</div>
+</body>
+</html>

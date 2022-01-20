@@ -1,0 +1,56 @@
+@page
+@model WebApplication1.Pages_Recipes.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Recipe</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Recipe.RecipeId" />
+            <div class="form-group">
+                <label asp-for="Recipe.Name" class="control-label"></label>
+                <input asp-for="Recipe.Name" class="form-control" />
+                <span asp-validation-for="Recipe.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Recipe.Category" class="control-label"></label>
+                <input asp-for="Recipe.Category" class="form-control" />
+                <span asp-validation-for="Recipe.Category" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Recipe.Servings" class="control-label"></label>
+                <input asp-for="Recipe.Servings" class="form-control" />
+                <span asp-validation-for="Recipe.Servings" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Recipe.Time" class="control-label"></label>
+                <input asp-for="Recipe.Time" class="form-control" />
+                <span asp-validation-for="Recipe.Time" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Recipe.RecipeText" class="control-label"></label>
+                <input asp-for="Recipe.RecipeText" class="form-control" />
+                <span asp-validation-for="Recipe.RecipeText" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <button onclick="window.location.href= '/ChangeIngrdients?id=@Model.Recipe.RecipeId'" class="btn btn-primary">Edit Ingredients</button>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

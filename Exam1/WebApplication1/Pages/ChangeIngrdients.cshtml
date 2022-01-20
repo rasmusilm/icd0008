@@ -1,0 +1,29 @@
+@page
+@model WebApplication1.Pages.ChangeIngrdients
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<div>
+    <form action="" method="post">
+        @foreach (var item in Model.Ingredients)
+        {
+            <div class="row">
+                <div class="col">
+                    <input type="checkbox" name="@item.IngredientId" @(Model.RecipeIngredients.ContainsKey(item) ? "checked" : "")/> @item.Name
+                </div>
+                <div class="col">
+                    <input type="text" name="amount@(item.IngredientId)" value="@(Model.RecipeIngredients.ContainsKey(item) ? Model.RecipeIngredients[item] : 0)"/>
+                </div>
+            </div>
+        }
+        <input type="hidden" name="id" value="@Model.Id"/>
+        <button type="submit">Save</button>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+@page
+@using BattleshipBrain
+@model WebApplication.Pages.Game.start_new
+
+@{
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<div>
+    @foreach (string conf in Model.configs)
+        {
+            <div class="row">
+                <div class="col">@conf</div>
+                <div class="col" onclick="window.location.href = '/Game/Play?&load=@true&@(Functions.useDB() ? "id="+@Functions.start(conf)+"&player=0" : "gamename="+Functions.startjson(conf)+"&player=0")'">Load this</div>
+            </div>
+        }
+</div>
+</body>
+</html>

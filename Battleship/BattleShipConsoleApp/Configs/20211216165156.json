@@ -1,0 +1,1 @@
+{"BoardWidth":10,"BoardHeight":10,"ShipPlacement":2,"Name":"Not standard 2","Id":0,"ShipConfigs":[{"SizeX":1,"SizeY":1,"Quantity":7,"Name":"Destroyer"},{"SizeX":1,"SizeY":2,"Quantity":3,"Name":"Submarine"},{"SizeX":1,"SizeY":3,"Quantity":2,"Name":"Cruiser"},{"SizeX":1,"SizeY":4,"Quantity":2,"Name":"Battleship"},{"SizeX":1,"SizeY":5,"Quantity":1,"Name":"Carrier"}]}

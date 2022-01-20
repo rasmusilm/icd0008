@@ -1,0 +1,84 @@
+@page
+@using Domain
+@model WebApplication1.Pages.Show
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<h1>
+    Recipe
+</h1>
+<div>
+    <div class="row">
+        <div class="col">
+            <h6>Name:</h6>
+        </div>
+        <div class="col">
+            <h6>@Model.Recipe!.Name</h6>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h6>Category:</h6>
+        </div>
+        <div class="col">
+            <h6>@Model.Recipe!.Category</h6>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h6>Ingredients:</h6>
+        </div>
+    </div>
+    @foreach (KeyValuePair<Ingredient, double> ingredient in Model.Ingredients)
+    {
+        <div class="row">
+            <div class="col">
+                <h6>@ingredient.Key.Name</h6>
+            </div>
+            <div class="col">
+                <h6>@ingredient.Value @ingredient.Key.Unit</h6>
+            </div>
+        </div>
+    }
+
+    <div class="row">
+        <div class="col">
+            <h6>Time needed:</h6>
+        </div>
+        <div class="col">
+            @(Model.Recipe!.Time >= 60 ? Model.Recipe!.Time / 60 + "h" + Model.mins : Model.mins)
+        </div>
+    </div>
+
+
+    <div class="row">
+        <form action="" method="get">
+            <div class="col">
+                <input type="text" name="servings" class="form-control" value="@Model.Recipe.Servings"/>
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-primary">Recalculate servings</button>
+            </div>
+            <input type="hidden" name="recal" value="true"/>
+            <input type="hidden" name="id" value="@Model.Recipe.RecipeId"/>
+        </form>
+    </div>
+    <div class="row">
+        <button class="btn-warning" onclick="window.location.href= '/ChangeIngrdients?id=@Model.Recipe.RecipeId'">Change Ingridients</button>
+    </div>
+
+    <div class="row" style="width: 100%; align-content: center">
+        <div class="col"></div>
+        <div class="col">
+            <p style="align-content: center; background-color: aliceblue">@Model.Recipe.RecipeText</p></div>
+        <div class="col"></div>
+    </div>
+
+</div>
+</body>
+</html>

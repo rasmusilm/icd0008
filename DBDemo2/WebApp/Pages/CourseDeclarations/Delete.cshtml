@@ -1,0 +1,46 @@
+@page
+@model WebApp.Pages_CourseDeclarations.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>CourseDeclaration</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CourseDeclaration!.IsStudent)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CourseDeclaration!.IsStudent)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CourseDeclaration!.FinalGrade)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CourseDeclaration!.FinalGrade)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CourseDeclaration!.Person)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CourseDeclaration!.Person!.PersonId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CourseDeclaration!.Course)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CourseDeclaration!.Course!.CourseName)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="CourseDeclaration!.CourseDeclarationId" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>

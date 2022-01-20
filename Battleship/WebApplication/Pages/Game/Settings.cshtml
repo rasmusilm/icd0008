@@ -1,0 +1,21 @@
+@page
+@model WebApplication.Pages.Game.Settings
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<div>
+    <div class="row">
+        <div class="col">Saving location: @(Model.savetToDB ? "Database" : "Local")</div>
+        <div class="col">
+            <button class="btn btn-primary" onclick="window.location.href = '/Game/Settings?switchsave=1' ">Switch to @(!Model.savetToDB ? "Database" : "Local")</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

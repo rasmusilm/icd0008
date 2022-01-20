@@ -1,0 +1,17 @@
+﻿@page
+@using Domain
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    @foreach (Recipe recipe in Model.Recipes)
+    {
+        <div class="row">
+            <div class="col"><h3 onclick="window.location.href='/Show?id=@recipe.RecipeId'">@recipe.Name</h3></div>
+            <div class="col"><h3 onclick="window.location.href='/Edit?id=@recipe.RecipeId'">Edit</h3> </div>
+        </div>
+    }
+</div>

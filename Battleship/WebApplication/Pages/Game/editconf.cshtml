@@ -1,0 +1,30 @@
+@page
+@model WebApplication.Pages.editconf
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<div>
+    <form method="post">
+        <div>
+            <label asp-for="ConfigDb!.Name">Name</label>
+            <input type="text" asp-for="ConfigDb!.Name"/>
+            <label asp-for="ConfigDb!.BoardHeight">Height</label>
+            <input type="text" asp-for="ConfigDb!.BoardHeight"/>
+            <label asp-for="ConfigDb!.BoardWidth">Width</label>
+            <input type="text" asp-for="ConfigDb!.BoardWidth"/>
+            <label asp-for="ConfigDb!.ShipPlacement">Placement</label>
+            <input type="text" asp-for="ConfigDb!.ShipPlacement"/>
+            <label asp-for="ConfigDb!.ShipConfigs">Types</label>
+            <input type="text" asp-for="ConfigDb!.ShipConfigs"/>
+            <input type="hidden" asp-for="ConfigDb!.GameConfigDbDtoId" value="@Model.ConfigDb!.GameConfigDbDtoId"/>
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

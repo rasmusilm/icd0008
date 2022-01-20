@@ -1,0 +1,39 @@
+{
+"BoardWidth":10,
+"BoardHeight":10,
+"ShipPlacement":0,
+"Name":"Standard",
+"ShipConfigs":
+    [
+        {
+        "SizeX":1,
+        "SizeX":1,
+        "Quantity":4,
+        "Name":"Destroyer"
+        },
+        {
+            "SizeX":1,
+            "SizeY":2,
+            "Quantity":3,
+            "Name":"Submarine"
+        },
+        {
+            "SizeX":1,
+            "SizeY":3,
+            "Quantity":2,
+            "Name":"Cruiser"
+        },
+        {
+            "SizeX":1,
+            "SizeY":4,
+            "Quantity":1,
+            "Name":"Battleship"
+        },
+        {
+            "SizeX":1,
+            "SizeY":5,
+            "Quantity":1,
+            "Name":"Carrier"
+        }
+    ]
+}

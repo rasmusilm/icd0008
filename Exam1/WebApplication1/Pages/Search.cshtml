@@ -1,0 +1,87 @@
+@page
+@model WebApplication1.Pages.Search
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<div>
+    @if (!Model.searched)
+    {
+        <form action="" method="get">
+            <div class="row">
+                <div class="col"><label>Can be made now</label></div>
+                <div class="col"><input type="checkbox" name="possible"/></div>
+            </div>
+            <div class="row">
+                <div class="col"><label>Names with</label></div>
+                
+                <div class="col"><input type="text" name="search"/></div>
+                
+            </div>
+            <div class="row">
+                <div class="col"><label>Has ingredients</label></div>
+                <div class="col">
+                    <input type="checkbox" name="with"/>
+                    <input type="text" name="containing"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col"><label>Avoid ingredients</label></div>
+                <div class="col">
+                    <input type="checkbox" name="without"/>
+                    <input type="text" name="containt"/>
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="col"><label>Servings between</label></div>
+                <div class="col">
+                    <input type="number" name="serve_min" value="0"/>-
+                    <input type="number" name="serve_max" value="2000"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col"><label>Time between</label></div>
+                <div class="col">
+                    <input type="number" name="time_min" value="0"/>-
+                    <input type="number" name="time_max" value="2000"/>
+                </div>
+            </div>
+            <div class="row">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+            
+        </form>
+        
+        <p>When inserting keywords or ingredients into search, sparate different words with "; ".</p>
+        
+    }
+    else
+    {
+        <div class="row">
+            <div class="col">
+                Search results
+            </div>
+            <div class="col">
+                <span class="btn btn-warning" onclick="window.location.href='/Search'">New search</span>
+            </div>
+        </div>
+        foreach (var result in Model.Results)
+        {
+            <div class="row">
+                <div class="col">
+                    <h5>@result.Name</h5>
+                </div>
+                <div class="col">
+                    <span class="btn btn-info" onclick="window.location.href='/Show?id=@result.RecipeId'">View</span>
+                </div>
+            </div>
+        }
+    }
+</div>
+</body>
+</html>

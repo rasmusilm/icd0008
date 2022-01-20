@@ -1,0 +1,41 @@
+@page
+@model WebApp.Pages.Test
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                FirstName
+            </th>
+            <th>
+                LastName
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var person in Model.Persons)
+            {
+                <tr>
+                    <td>@person.FirstName</td>
+                    <td>@person.LastName</td>
+                    <td><a href="/EditPerson?id=@person.PersonId">Edit</a></td>
+                </tr>
+            }
+    </tbody>
+    
+</table>
+
+<h1>Hello</h1>
+<form method="get">
+    <input id="name" name="name"/>
+    <input type="submit" value="Submit"/>
+</form>
+
+@if (Model.Name != null)
+{
+    <h4>@Model.Name</h4>
+}
+else
+{
+    <h4>no name yet</h4>
+}

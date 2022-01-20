@@ -1,0 +1,66 @@
+@page
+@model WebApplication.Pages.Game.History
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<div>
+    @if (Model.GameOver)
+    {
+        <div class="alert alert-success">Player @Model.Winner won</div>
+    }
+    <div class="row">
+        <div class="col">
+            <table border="1">
+                @for (int y = 0; y < Model.Own.GetLength(0); y++)
+                {
+                    <tr style="height: 30px">
+                        @for (int x = 0; x < Model.Own.GetLength(1); x++)
+                        {
+                            <td style="background-color: @(Model.Enemy[x, y].isEmpty ? "#0f6674" : "#9C9C9C"); width: 30px; cursor: pointer">
+                                @(Model.Enemy[x, y].isBombed ? " X" : " ")
+                            </td>
+                        }
+                    </tr>
+                }
+            </table>
+        </div>
+        <div class="col">
+            <table border="1">
+                @for (int y = 0; y < Model.Own.GetLength(0); y++)
+                {
+                    <tr style="height: 30px">
+                        @for (int x = 0; x < Model.Own.GetLength(1); x++)
+                        {
+                            <td style="background-color: @(Model.Own[x, y].isEmpty ? "#0f6674" : "#9C9C9C"); width: 30px; cursor: pointer">
+                                @(Model.Own[x, y].isBombed ? " X" : " ")
+                            </td>
+                        }
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            @if (Model.UndoSize > 0)
+            {
+                <button class="btn btn-info" onclick="window.location.href = '/Game/History?rewind=undo&id=@Model.Id'">Undo</button>
+                <button class="btn btn-info" onclick="window.location.href = '/Game/History?rewind=begin&id=@Model.Id'">To the Start</button>
+            }
+        </div>
+        <div class="col">
+            @if (Model.RedoSize > 0)
+            {
+                <button class="btn btn-info" onclick="window.location.href = '/Game/History?rewind=redo&id=@Model.Id'">Redo</button>
+                <button class="btn btn-info" onclick="window.location.href = '/Game/History?rewind=continue&id=@Model.Id'">To the end</button>
+            }
+        </div>
+    </div>
+</div>
+</body>
+</html>

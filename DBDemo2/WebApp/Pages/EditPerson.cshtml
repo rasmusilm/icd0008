@@ -1,0 +1,19 @@
+@page
+@model WebApp.Pages.EditPerson
+
+<!DOCTYPE html>
+
+<html>
+  <form method="post">
+    <div class="mb-3">
+      <label asp-for="Person!.FirstName" class="form-label">Firstname</label>
+      <input asp-for="Person!.FirstName" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label asp-for="Person!.LastName" class="form-label">Lastname</label>
+      <input asp-for="Person!.LastName" class="form-control" >
+    </div>
+    <input type="hidden" asp-for="Person!.PersonId"/>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</html>

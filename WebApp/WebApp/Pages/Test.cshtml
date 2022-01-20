@@ -1,0 +1,17 @@
+@page
+@model WebApp.Pages.Test
+
+<h1>Hello</h1>
+<form method="get">
+    <input id="name" name="name"/>
+    <input type="submit" value="Submit"/>
+</form>
+
+@if (Model.Name != null)
+{
+    <h4>@Model.Name</h4>
+}
+else
+{
+    <h4>no name yet</h4>
+}

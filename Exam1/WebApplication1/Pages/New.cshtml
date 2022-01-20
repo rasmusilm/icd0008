@@ -1,0 +1,37 @@
+@page
+@model WebApplication1.Pages.New
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<div>
+    <form action="" method="post">
+        <div class="form-group">
+            <label asp-for="Recipe.Name" class="control-label">Recipe Name</label>
+            <input type="text" asp-for="Recipe.Name" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <label asp-for="Recipe.Category" class="control-label">Category</label>
+            <input type="text" asp-for="Recipe.Category" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <label asp-for="Recipe.Servings" class="control-label">Servings</label>
+            <input type="number" asp-for="Recipe.Servings" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <label asp-for="Recipe.Time" class="control-label">Time to complete in minutes</label>
+            <input type="number" asp-for="Recipe.Time" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <label asp-for="Recipe.RecipeText" class="control-label">Instructions</label>
+            <input type="text" asp-for="Recipe.RecipeText" class="form-control"/>
+        </div>
+        <button type="submit" class="btn btn-success">Save</button>
+    </form>
+</div>
+</body>
+</html>
